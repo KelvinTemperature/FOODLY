@@ -10,14 +10,26 @@ body{
 
 nav{
     background-color: blueviolet;
+    /* background: transparent; */
     color: white;
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
 
 .navTop{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.mainMenu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navMenu{
+    padding: 0 5px;
+    cursor: pointer;
 }
 
 .search{
@@ -38,26 +50,37 @@ nav{
     color: lightgray;
 }
 
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.signin{
+    padding: 0 5px;
+    cursor: pointer;
+}
+
 .navBottom{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-h2.navBottom{
+h2.navBottom a{
     color: white;
     width: fit-content;
     text-align: center;
     display: flex;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0px 5px;
     margin: 0 auto 10px;
     border-radius: 20px;
     text-decoration-line: none;
     background-color: blueviolet;
 }
 
-.store{
+.menuItem{
     position: relative;
     cursor: pointer;
     padding: 2px 40px;
@@ -76,16 +99,6 @@ h2.navBottom{
     z-index: 1;
     padding: 5px 50px 5px 0;
     margin-top: 17px;
-}
-
-.menu, .menu li{
-    list-style-type: none;
-    color: black;
-    padding-bottom: 10px;
-}
-
-.store:hover > .menu {
-    display: block;
 }
 
 .slider {
@@ -145,11 +158,12 @@ h2.navBottom{
   .buyButton {
     position: absolute;
     top: 80%;
-    right: 10%;
+    right: 5%;
     font-size: 30px;
     font-weight: 900;
     color: white;
     border: 1px solid gray;
+    border-radius: 20px;
     background-color: black;
     z-index: 1;
     cursor: pointer;
@@ -334,8 +348,9 @@ h2.navBottom{
 
 .productButton {
   float: right;
-  padding: 10px 20px;
+  padding: 10px 10px;
   background-color: black;
+  border-radius: 20px;
   color: white;
   font-weight: 600;
   cursor: pointer;
