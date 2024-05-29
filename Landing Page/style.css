@@ -45,7 +45,7 @@ nav{
 }
 
 h2.navBottom{
-    textcolor: white;
+    color: white;
     width: fit-content;
     text-align: center;
     display: flex;
