@@ -6,7 +6,7 @@ const products = [
         id: 1,
         title: "Refuel Fried Rice Meal",
         price: 1500,
-        img: "/Images/2-REFUEL-FRIED-RICE-MEAL.jpg",
+        img: "Images/2-REFUEL-FRIED-RICE-MEAL.jpg",
     },
     {
         id: 2,
