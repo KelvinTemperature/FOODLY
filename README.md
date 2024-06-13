@@ -1,6 +1,9 @@
 FOODLY
+
 ![alt text](frontend/Images/Logo.png)
+
 INTRODUCTION
+
 This project is carried out by three SE project partners (Givens Abraham, Kelvin Chukwuka & Praise Essi). it is about creating a website for food delivery called "FOODLY".
 Foodly is an innovative online platform that connects food lovers with a wide variety of culinary delights. Whether you’re craving comfort food, exotic cuisines, or healthy options, Foodly has you covered. 
 Here are the key features that set Foodly apart:
@@ -15,8 +18,10 @@ Foodly encourages users to share their dining experiences. Read honest reviews, 
 You can checkout the site here https://main--eloquent-frangipane-dd21d2.netlify.app/index1
 
 INSTALLATIONS
+
 To run this app on your local machine, go into backend directory, then foodly directory and open requirement.txt. Install all the requirement there to run this program.
 
 USAGE
+
 Goto https://main--eloquent-frangipane-dd21d2.netlify.app/index1
 
