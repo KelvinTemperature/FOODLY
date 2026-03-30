@@ -1,27 +1,65 @@
 FOODLY
 
-![alt text](frontend/Images/Logo.png)
+![Foodly Logo](frontend/Images/Logo.png)
 
-INTRODUCTION
+Foodly is a simple food-ordering web app with:
+- A static frontend in `frontend/`
+- A Flask REST backend in `backend/Foodly/`
 
-This project is carried out by three SE project partners (Givens Abraham, Kelvin Chukwuka & Praise Essi). it is about creating a website for food delivery called "FOODLY".
-Foodly is an innovative online platform that connects food lovers with a wide variety of culinary delights. Whether you’re craving comfort food, exotic cuisines, or healthy options, Foodly has you covered. 
-Here are the key features that set Foodly apart:
-- Curated Menus:
-Foodly partners with local restaurants, cafes, and home chefs to offer a diverse menu. From gourmet burgers to vegan sushi rolls, users can explore a world of flavors.
-- Efficient Ordering:
-Foodly’s user-friendly interface makes ordering a breeze. Simply browse the menu, customize your meal, and place your order. No more waiting on hold or dealing with paper menus!
-- Fast Delivery:
-Foodly prioritizes timely delivery. Whether you’re at home, the office, or a park, your favorite dishes will arrive piping hot. Track your order in real-time and enjoy the convenience.
-- Community Reviews:
-Foodly encourages users to share their dining experiences. Read honest reviews, discover hidden gems, and support local businesses.
-You can checkout the site here https://main--eloquent-frangipane-dd21d2.netlify.app/index1
+## Backend Setup
 
-INSTALLATIONS
+1. Open a terminal in `backend/Foodly/`.
+2. Create and activate a virtual environment.
+3. Install dependencies:
 
-To run this app on your local machine, go into backend directory, then foodly directory and open requirement.txt. Install all the requirement there to run this program.
+```bash
+pip install -r requirements.txt
+```
 
-USAGE
+4. Run the API:
 
-Goto https://main--eloquent-frangipane-dd21d2.netlify.app/index1
+```bash
+python app.py
+```
+
+The API starts on `http://127.0.0.1:5000` by default.
+Swagger UI is available at:
+
+`http://127.0.0.1:5000/swagger-ui`
+
+## Frontend Usage
+
+Open `frontend/index.html` (home page) or `frontend/index1.html` (menu/order page) in a browser.
+
+## Run Tests
+
+From `backend/Foodly/`:
+
+```bash
+pip install -r requirements.txt
+pytest -q
+```
+
+## Available API Endpoints
+
+Products:
+- `GET /products`
+- `POST /products`
+- `GET /products/<product_id>`
+- `PUT /products/<product_id>`
+- `DELETE /products/<product_id>`
+
+Shops:
+- `GET /shops`
+- `POST /shops`
+- `GET /shops/<shop_id>`
+- `PUT /shops/<shop_id>`
+- `DELETE /shops/<shop_id>`
+
+Orders:
+- `GET /orders`
+- `POST /orders`
+- `GET /orders/<order_id>`
+- `PUT /orders/<order_id>`
+- `DELETE /orders/<order_id>`
 

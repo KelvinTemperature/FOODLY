@@ -34,27 +34,24 @@ const products = [
     },
 ];
 
-let choosenProduct = products[0];
+let chosenProduct = products[0];
 
 const currentProductImg = document.querySelector(".productImg");
 const currentProductTitle = document.querySelector(".productTitle");
 const currentProductPrice = document.querySelector(".productPrice");
-const currentProductQuant = document.querySelector(".size");
+const currentProductQuant = document.querySelectorAll(".size");
 
-menuItems.forEach((item, index) => {
-    item.addEventListener("click", () => {
-        //change the current slide
-        wrapper.style.transform = `translateX(${-100 * index}vw)`;
-
-        //change choosen product
-        choosenProduct = products[index];
-
-        //change texts of currentProduct
-        currentProductTitle.textContent = choosenProduct.title;
-        currentProductPrice.textContent = "N " + choosenProduct.price;
-        currentProductImg.src = choosenProduct.img;
+if (wrapper && menuItems.length > 0 && currentProductImg && currentProductTitle && currentProductPrice) {
+    menuItems.forEach((item, index) => {
+        item.addEventListener("click", () => {
+            wrapper.style.transform = `translateX(${-100 * index}vw)`;
+            chosenProduct = products[index];
+            currentProductTitle.textContent = chosenProduct.title;
+            currentProductPrice.textContent = "N " + chosenProduct.price;
+            currentProductImg.src = chosenProduct.img;
+        });
     });
-});
+}
 
 // currentProductQuant.forEach((size, index) => {
 //     size.addEventListener("click", () => {
@@ -67,14 +64,30 @@ menuItems.forEach((item, index) => {
 //     });
 //   });
   
+if (currentProductQuant.length > 0) {
+    currentProductQuant.forEach((size) => {
+        size.addEventListener("click", () => {
+            currentProductQuant.forEach((value) => {
+                value.style.backgroundColor = "white";
+                value.style.color = "black";
+            });
+
+            size.style.backgroundColor = "black";
+            size.style.color = "white";
+        });
+    });
+}
+
 const productButton = document.querySelector(".productButton");
 const payment = document.querySelector(".payment");
 const close = document.querySelector(".close");
 
-productButton.addEventListener("click", () => {
-  payment.style.display = "flex";
-});
+if (productButton && payment && close) {
+    productButton.addEventListener("click", () => {
+        payment.style.display = "flex";
+    });
 
-close.addEventListener("click", () => {
-  payment.style.display = "none";
-});
+    close.addEventListener("click", () => {
+        payment.style.display = "none";
+    });
+}

@@ -1,8 +1,10 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from db import orders
-import uuid
-from schemas import OrderSchema
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+
+from db import db
+from models import OrderModel
+from schemas import OrderSchema, OrderUpdateSchema
 
 blueprint = Blueprint('orders', __name__, description='Orders API')
 
@@ -10,31 +12,74 @@ blueprint = Blueprint('orders', __name__, description='Orders API')
 @blueprint.route('/orders/<int:order_id>')
 class Order(MethodView):
 
-    @blueprint.response(200, 'Success')
+    @blueprint.response(200, OrderSchema)
     def get(self, order_id):
         """Get order by ID"""
-        return orders.get(order_id)
+        try:
+            order = db.session.get(OrderModel, order_id)
+            if not order:
+                abort(404, message='Order not found')
 
-    @blueprint.arguments(OrderSchema)
-    @blueprint.response(201, 'Order successfully created')
-    def post(self, order):
-        """Create a new order"""
-        order_id = str(uuid.uuid4())
-        orders[order_id] = order
-        return { 'id': order_id, **order }, 201
+            return order
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
 
-    @blueprint.arguments(OrderSchema)
-    @blueprint.response(200, 'Order successfully updated')
-    def put(self, order, order_id):
+    @blueprint.arguments(OrderUpdateSchema)
+    @blueprint.response(200, OrderSchema)
+    def put(self, order_data, order_id):
         """Update an order"""
-        orders[order_id] = order
-        return orders[order_id]
+        try:
+            order = db.session.get(OrderModel, order_id)
+            if not order:
+                abort(404, message='Order not found')
+
+            for key, value in order_data.items():
+                setattr(order, key, value)
+
+            db.session.commit()
+            return order
+        except IntegrityError as e:
+            abort(400, message=str(e))
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
 
     @blueprint.response(204, 'Order successfully deleted')
     def delete(self, order_id):
         """Delete an order"""
         try:
-            del orders[order_id]
+            order = db.session.get(OrderModel, order_id)
+            if not order:
+                abort(404, message='Order not found')
+
+            db.session.delete(order)
+            db.session.commit()
             return '', 204
-        except KeyError:
-            abort(404, message='Order not found')
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
+
+
+@blueprint.route('/orders')
+class OrderList(MethodView):
+
+    @blueprint.response(200, OrderSchema(many=True))
+    def get(self):
+        """Get all orders"""
+        try:
+            return OrderModel.query.all()
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
+
+    @blueprint.arguments(OrderSchema)
+    @blueprint.response(201, OrderSchema)
+    def post(self, order_data):
+        """Create a new order"""
+        new_order = OrderModel(**order_data)
+
+        try:
+            db.session.add(new_order)
+            db.session.commit()
+            return new_order
+        except IntegrityError as e:
+            abort(400, message=str(e))
+        except SQLAlchemyError as e:
+            abort(500, message=str(e))
