@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ./backend/Foodly
+    container_name: foodly-backend
+    environment:
+      - DATABASE_URL=sqlite:////app/instance/data.db
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-foodly-compose-secret-key-with-32-plus-chars}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./backend/Foodly/instance:/app/instance
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: foodly-frontend
+    ports:
+      - '8080:80'
+    depends_on:
+      - backend

@@ -1,8 +1,12 @@
 flask
 flask-smorest
 flask-cors
+flask-sqlalchemy
+flask-jwt-extended
 python-dotenv
 marshmallow
 sqlalchemy
-flask-sqlalchemy
 pytest
+stripe
+gunicorn
+flask-sqlalchemy
