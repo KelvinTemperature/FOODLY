@@ -1,126 +1,205 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link 
-            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
-            rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="home.css">
-        <link rel="shortcut icon" href="Images/Logo - Copy.png" type="image/x-icon">
-        <title>FOODLY</title>
-    </head>
-    <body>
-        <nav>
-            <div class="navTop">
-                <div class="navItem">
-                    <img src="Images/Logo.png" alt="logo" height="50">
-                </div>
-                <div class="navItem mainMenu">
-                    <ul class="navMenu">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="index1.html">Menu</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="navItem search">
-                    <input type="text" name="search" class="searchInput" placeholder="search">
-                    <img src="Images/search.png" width="20" height="20" alt="">
-                </div>
-                <div class="navItem login">
-                    <ul class="signin">
-                        <li><a href="#">Sign-in</a></li>
-                        <li><a href="#">Sign-up</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="content">
-            <h1> <br><span>FOODLY</span><br></h1>
-            <p class="par">Your one stop store for all your cravings<br> Foodly will be your companion at every point 
-                <br> Register now, to taste the good life
-            </p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e8f73" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>FOODLY Kuwait | Food Delivery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="shortcut icon" href="Images/Logo - Copy.png" type="image/x-icon" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index1.html" aria-label="Foodly home">
+        <img src="Images/Logo.png" alt="Foodly logo" />
+        <span>FOODLY Kuwait</span>
+      </a>
+      <nav class="navlinks">
+        <a href="#menu">Menu</a>
+        <a href="#auth">Account</a>
+        <a href="#how">How it works</a>
+        <a href="#checkout">Checkout</a>
+      </nav>
+      <span id="authUser" class="userBadge">Guest</span>
+      <button id="openCart" class="cartBtn" type="button">Cart <span id="cartCount">0</span></button>
+    </header>
 
-            <button class="cn"><a href="#">JOIN US</a></button>
-
-            <div class="form">
-                    <h2>Login Here</h2>
-                    <input type="email" name="email" placeholder="Enter Email Here">
-                    <input type="password" name="" placeholder="Enter Password Here">
-                    <button class="btnn"><a href="#">Login</a></button>
-
-                    <p class="link">Don't have an account<br>
-                    <a href="#">Sign up </a> here</a></p>
-                    <p class="liw">Log in with</p>
-
-                    <div class="icons">
-                        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-google"></ion-icon></a>
-                        <a href="#"><ion-icon name="logo-skype"></ion-icon></a>
-                    </div>
-
-            </div>
+    <main>
+      <section class="hero">
+        <div class="heroText">
+          <p class="eyebrow">Fast Delivery Across Kuwait</p>
+          <h1>From Machboos to Fusion Bowls, delivered in minutes.</h1>
+          <p class="slogan">Foodly is better</p>
+          <p>
+            FOODLY is your modern food delivery companion in Kuwait. Order from curated kitchens, pay with KNET,
+            card, Apple Pay, or cash on delivery.
+          </p>
+          <div class="heroCtas">
+            <a href="#menu" class="btn primary">Start Ordering</a>
+            <a href="#checkout" class="btn ghost">Go To Checkout</a>
+          </div>
         </div>
-        <footer>
-            <div class="footerLeft">
-                <div class="footerMenu">
-                    <h1 class="fMenuTitle">About Us</h1>
-                    <ul class="fList">
-                        <li class="fListItem">Company</li>
-                        <li class="fListItem">Contact</li>
-                        <li class="fListItem">Careers</li>
-                        <li class="fListItem">Affiliates</li>
-                        <li class="fListItem">Stores</li>
-                    </ul>
-                </div>
-                <div class="footerMenu">
-                    <h1 class="fMenuTitle">Useful Links</h1>
-                    <ul class="fList">
-                        <li class="fListItem">Support</li>
-                        <li class="fListItem">Refund</li>
-                        <li class="fListItem">FAQ</li>
-                        <li class="fListItem">Feedback</li>
-                        <li class="fListItem">Stories</li>
-                    </ul>
-                </div>
-                <div class="footerMenu">
-                    <h1 class="fMenuTitle">Products</h1>
-                    <ul class="fList">
-                        <li class="fListItem">Refuel Fried Rice</li>
-                        <li class="fListItem">Refuel Spicy Rice</li>
-                        <li class="fListItem">Refuel Max Spaghetti</li>
-                        <li class="fListItem">Refuel Max Fried Rice</li>
-                        <li class="fListItem">Chiecken and Chips</li>
-                    </ul>
-                </div>
+        <div class="heroCard">
+          <h2>Delivery Zone</h2>
+          <p>Select your governorate to calculate delivery instantly.</p>
+          <label for="governorate">Governorate</label>
+          <select id="governorate"></select>
+          <div class="metaRow">
+            <span>Delivery fee</span>
+            <strong id="deliveryFee">KWD 0.00</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="menuSection">
+        <div class="sectionHeader">
+          <h2>Trending Today</h2>
+          <p>Freshly prepared and rated by hungry people in Kuwait City, Hawalli and beyond.</p>
+        </div>
+        <div id="menuGrid" class="menuGrid" aria-live="polite"></div>
+      </section>
+
+      <section id="rivals" class="rivalSection">
+        <div class="sectionHeader rivalHeader">
+          <h2>50 Meal Price Samples (Kuwait Market)</h2>
+          <p>
+            Benchmark samples inspired by Kuwait dining market. These are illustrative estimates for comparison, not
+            official competitor prices.
+          </p>
+          <div class="rivalControls">
+            <button id="rivalPrev" class="btn ghost" type="button">Previous</button>
+            <button id="rivalNext" class="btn ghost" type="button">Next</button>
+          </div>
+        </div>
+        <div id="rivalTrack" class="rivalTrack" aria-live="polite"></div>
+      </section>
+
+      <section id="auth" class="authSection">
+        <div class="checkoutCard">
+          <h2>Account Access</h2>
+          <form id="registerForm">
+            <div class="fieldRow two">
+              <div>
+                <label for="registerName">Full name</label>
+                <input id="registerName" name="registerName" type="text" required placeholder="Givforks" />
+              </div>
+              <div>
+                <label for="registerPhone">Phone</label>
+                <input id="registerPhone" name="registerPhone" type="tel" placeholder="+96567778899" />
+              </div>
             </div>
-            <div class="footerRight">
-                <div class="footerRightMenu">
-                    <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
-                    <div class="fMail">
-                        <input type="text" placeholder="your@email.com" class="fInput">
-                        <button class="fButton">Join!</button>
-                    </div>
-                </div>
-                <div class="footerRightMenu">
-                    <h1 class="fMenuTitle">Follow Us</h1>
-                    <div class="fIcons">
-                        <img src="Images/facebook.png" alt="" class="fIcon">
-                        <img src="Images/twitter.png" alt="" class="fIcon">
-                        <img src="Images/instagram.png" alt="" class="fIcon">
-                        <img src="Images/whatsapp.png" alt="" class="fIcon">
-                    </div>
-                </div>
-                <div class="footerRightMenu">
-                    <span class="copyright">@Vintemp Enterprise. All rights reserved. 2024.</span>
-                </div>
+            <div class="fieldRow two">
+              <div>
+                <label for="registerEmail">Email</label>
+                <input id="registerEmail" name="registerEmail" type="email" required />
+              </div>
+              <div>
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" name="registerPassword" type="password" required minlength="8" />
+              </div>
             </div>
-        </footer>
-        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-        <script src="app.js"></script>
-    </body>
+            <button class="btn ghost full" type="submit">Create account</button>
+          </form>
+
+          <form id="loginForm">
+            <div class="fieldRow two">
+              <div>
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" name="loginEmail" type="email" required />
+              </div>
+              <div>
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="loginPassword" type="password" required />
+              </div>
+            </div>
+            <button class="btn ghost full" type="submit">Login</button>
+          </form>
+          <button id="logoutBtn" class="btn ghost full" type="button">Logout</button>
+          <p class="status" id="authStatus">Create an account or login to continue.</p>
+        </div>
+      </section>
+
+      <section id="how" class="steps">
+        <article>
+          <h3>1. Pick your meal</h3>
+          <p>Browse top kitchens and add your favorites to cart.</p>
+        </article>
+        <article>
+          <h3>2. Choose payment</h3>
+          <p>KNET, Visa/Mastercard, Apple Pay, or cash on delivery.</p>
+        </article>
+        <article>
+          <h3>3. Track your order</h3>
+          <p>Get live status from confirmed to delivered.</p>
+        </article>
+      </section>
+
+      <section id="checkout" class="checkoutSection">
+        <div class="checkoutCard">
+          <h2>Checkout</h2>
+          <form id="checkoutForm">
+            <div class="fieldRow">
+              <label for="customerName">Full name</label>
+              <input id="customerName" name="customerName" type="text" required placeholder="Givforks" />
+            </div>
+            <div class="fieldRow two">
+              <div>
+                <label for="customerPhone">Phone</label>
+                <input id="customerPhone" name="customerPhone" type="tel" required placeholder="+96567778899" />
+              </div>
+              <div>
+                <label for="customerEmail">Email</label>
+                <input id="customerEmail" name="customerEmail" type="email" placeholder="givens.abraham@gmail.com" />
+              </div>
+            </div>
+            <div class="fieldRow">
+              <label for="deliveryAddress">Delivery address</label>
+              <textarea id="deliveryAddress" name="deliveryAddress" rows="3" required placeholder="Salmiya Block 10, Street 4"></textarea>
+            </div>
+            <div class="fieldRow">
+              <label for="paymentMethod">Payment method</label>
+              <select id="paymentMethod" name="paymentMethod" required>
+                <option value="knet">KNET</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="apple_pay">Apple Pay</option>
+                <option value="cash_on_delivery">Cash on delivery</option>
+              </select>
+            </div>
+            <div class="fieldRow">
+              <label for="notes">Order note (optional)</label>
+              <input id="notes" name="notes" type="text" placeholder="No onions please" />
+            </div>
+            <button class="btn primary full" type="submit">Place Order</button>
+          </form>
+          <p class="status" id="orderStatus">Ready to place your order.</p>
+        </div>
+
+        <aside class="cartPanel" id="cartPanel">
+          <h3>Your Cart</h3>
+          <div id="cartItems"></div>
+          <div class="summaryRow"><span>Subtotal</span><strong id="subtotal">KWD 0.00</strong></div>
+          <div class="summaryRow"><span>Delivery</span><strong id="delivery">KWD 0.00</strong></div>
+          <div class="summaryRow total"><span>Total</span><strong id="total">KWD 0.00</strong></div>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <p>FOODLY Kuwait. Built for modern web and mobile experiences.</p>
+      <p>Author: Givforks (givens.abraham@gmail.com)</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
 </html>

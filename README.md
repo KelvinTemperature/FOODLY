@@ -1,65 +1,128 @@
-FOODLY
+# FOODLY Kuwait
 
-![Foodly Logo](frontend/Images/Logo.png)
+FOODLY is a modern full-stack food delivery app for Kuwait with:
+- Responsive web and mobile-first UI
+- Account registration and login (JWT)
+- Cart, checkout, and order tracking references
+- 50-slide Kuwait market sample meal carousel in frontend
+- Payment methods: KNET, Visa, Mastercard, Apple Pay, cash on delivery
+- Payment gateway support with Stripe integration when STRIPE_SECRET_KEY is provided
+- Kuwait governorate delivery fees and backend pricing validation
+- Role-based admin management APIs (users, shops, products, orders)
 
-Foodly is a simple food-ordering web app with:
-- A static frontend in `frontend/`
-- A Flask REST backend in `backend/Foodly/`
+## Authors
 
-## Backend Setup
+- Givforks <givens.abraham@gmail.com>
+- Kelvin Chukwuka <koolkt10@gmail.com>
+- Givens Emmah Abraham <givens.abraham@live.com>
 
-1. Open a terminal in `backend/Foodly/`.
-2. Create and activate a virtual environment.
-3. Install dependencies:
+## Stack
 
-```bash
-pip install -r requirements.txt
-```
+- Backend: Flask, Flask-Smorest, Flask-SQLAlchemy, Flask-JWT-Extended
+- Database: SQLite by default (DATABASE_URL configurable)
+- Frontend: HTML, CSS, Vanilla JavaScript
+- Optional payment provider: Stripe (fallback mock gateway enabled)
 
-4. Run the API:
+## Local Run
 
-```bash
-python app.py
-```
+### Backend
 
-The API starts on `http://127.0.0.1:5000` by default.
-Swagger UI is available at:
+1. Go to backend folder:
+   - cd backend/Foodly
+2. Install dependencies:
+   - pip install -r requirements.txt
+3. Create environment file:
+   - cp .env.example .env
+4. Start API:
+   - python app.py
 
-`http://127.0.0.1:5000/swagger-ui`
+Backend default URL: http://127.0.0.1:5000
 
-## Frontend Usage
+### Frontend
 
-Open `frontend/index.html` (home page) or `frontend/index1.html` (menu/order page) in a browser.
+Open the main page in browser:
+- frontend/index.html
 
-## Run Tests
+`index1.html` redirects to `index.html` to avoid duplicate UI.
 
-From `backend/Foodly/`:
+For live checkout, backend must be running.
 
-```bash
-pip install -r requirements.txt
-pytest -q
-```
+## Deploy With Docker
 
-## Available API Endpoints
+From project root:
+- docker compose up --build
 
-Products:
-- `GET /products`
-- `POST /products`
-- `GET /products/<product_id>`
-- `PUT /products/<product_id>`
-- `DELETE /products/<product_id>`
+Services:
+- Frontend: http://127.0.0.1:8080
+- Backend: http://127.0.0.1:5000
 
-Shops:
-- `GET /shops`
-- `POST /shops`
-- `GET /shops/<shop_id>`
-- `PUT /shops/<shop_id>`
-- `DELETE /shops/<shop_id>`
+You can set these env vars before compose up:
+- JWT_SECRET_KEY
+- STRIPE_SECRET_KEY
+- FOODLY_ADMIN_EMAIL
+- FOODLY_ADMIN_PASSWORD
+- FOODLY_ADMIN_NAME
+- FOODLY_ADMIN_PHONE
 
-Orders:
-- `GET /orders`
-- `POST /orders`
-- `GET /orders/<order_id>`
-- `PUT /orders/<order_id>`
-- `DELETE /orders/<order_id>`
+## Admin Account
 
+On startup, FOODLY creates (or promotes) a default admin account:
+- email: givens.abraham@gmail.com
+- password: Admin@12345
+
+Use this account to call admin-protected endpoints and manage the platform.
+
+Admin endpoints:
+- GET /admin/users
+- PUT /admin/users/<id>/role
+
+## API Endpoints
+
+### Health and Catalog
+- GET /health
+- GET /catalog
+
+### Auth
+- POST /auth/register
+- POST /auth/login
+
+### Shops
+- GET /shops
+- POST /shops (admin)
+- GET /shops/<id>
+- PUT /shops/<id> (admin)
+- DELETE /shops/<id> (admin)
+
+### Products
+- GET /products
+- POST /products (admin)
+- GET /products/<id>
+- PUT /products/<id> (admin)
+- DELETE /products/<id> (admin)
+
+### Orders
+- GET /orders
+- POST /orders
+- GET /orders/<id>
+- PUT /orders/<id> (admin)
+- DELETE /orders/<id> (admin)
+
+## Frontend Notes
+
+- Slogan: "Foodly is better"
+- Rival market slider values are sample benchmark estimates for comparison only.
+- 50 meal samples use web-hosted PNG food icons (Twemoji CDN) mapped by meal type.
+- Menu and slider images use lazy loading and async decoding for faster page load.
+
+## Payment Behavior
+
+- cash_on_delivery: payment_status = pending
+- knet / visa / mastercard / apple_pay:
+  - Uses Stripe PaymentIntent when STRIPE_SECRET_KEY is configured
+  - Falls back to mock gateway when key is not provided
+  - payment_status = authorized
+
+## Test
+
+From backend folder:
+- python -m pytest -q

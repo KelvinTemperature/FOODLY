@@ -1,0 +1,21 @@
+{
+  "name": "FOODLY Kuwait",
+  "short_name": "FOODLY",
+  "start_url": "./index1.html",
+  "display": "standalone",
+  "background_color": "#f7f4ef",
+  "theme_color": "#0e8f73",
+  "description": "Kuwait food delivery app with fast checkout",
+  "icons": [
+    {
+      "src": "Images/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Images/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
