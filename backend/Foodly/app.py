@@ -32,9 +32,11 @@ def _bootstrap_admin_account():
 
     existing_admin = UserModel.query.filter_by(email=admin_email).first()
     if existing_admin:
-        if existing_admin.role != 'admin':
-            existing_admin.role = 'admin'
-            db.session.commit()
+        existing_admin.role = 'admin'
+        existing_admin.full_name = admin_name
+        existing_admin.phone = os.environ.get('FOODLY_ADMIN_PHONE', '+96567778899')
+        existing_admin.set_password(admin_password)
+        db.session.commit()
         return
 
     admin_user = UserModel(
