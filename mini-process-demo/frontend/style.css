@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #1c2430;
+}
+
+.shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.hero {
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5b6bff;
+  font-weight: 700;
+}
+
+.lead {
+  color: #5b6577;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+input,
+button {
+  font: inherit;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+input {
+  flex: 1;
+  border: 1px solid #d8deea;
+}
+
+button {
+  border: none;
+  background: #5b6bff;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.status {
+  color: #5b6577;
+}
+
+.tasks {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.tasks li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid #e5e9f2;
+  border-radius: 12px;
+}
+
+.tasks li button {
+  padding: 8px 12px;
+  background: #ff5b6e;
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-direction: column;
+  }
+}
