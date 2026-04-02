@@ -27,6 +27,15 @@ A tiny task tracker with:
 
 ## Run
 
+Fastest way:
+
+```bash
+cd mini-process-demo
+bash start.sh
+```
+
+Manual way:
+
 ```bash
 cd mini-process-demo
 python -m venv .venv
@@ -42,6 +51,12 @@ http://127.0.0.1:5001
 ```
 
 Optional: if you want to serve frontend separately, run a static server in `frontend/` and it will still talk to backend on port 5001.
+
+## Troubleshooting
+
+- Do not run `python3 frontend/app.js`. That file is JavaScript and runs in the browser.
+- Do not run `python3 frontend/index.html`. HTML must be opened by the browser.
+- Correct command is `python app.py` from this folder, or just `bash start.sh`.
 
 ## Test
 

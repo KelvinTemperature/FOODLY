@@ -1,3 +1,4 @@
+// Browser script only. Run app.py with Python; do not run this file with Python.
 const API_BASE =
   window.location.port === "5001"
     ? window.location.origin
