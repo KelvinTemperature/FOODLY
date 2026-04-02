@@ -4,6 +4,8 @@ import pytest
 def client(tmp_path, monkeypatch):
     db_file = tmp_path / "test.db"
     monkeypatch.setenv("DATABASE_URL", f"sqlite:///{db_file}")
+    monkeypatch.setenv("MONGO_URI", "mongomock://localhost")
+    monkeypatch.setenv("MONGO_DB_NAME", "foodly_test_orders")
     from app import create_app
     app = create_app()
     app.config["TESTING"] = True

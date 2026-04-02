@@ -4,14 +4,27 @@ services:
     build:
       context: ./backend/Foodly
     container_name: foodly-backend
+    restart: unless-stopped
     environment:
-      - DATABASE_URL=sqlite:////app/instance/data.db
+      - MYSQL_HOST=${MYSQL_HOST:-host.docker.internal}
+      - MYSQL_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_USER=${MYSQL_USER:-Givenchi}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-Fauziya@123}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-foodly_auth}
+      - MONGO_URI=${MONGO_URI:-mongodb+srv://givenchi:Givenchi1@cluster0.2pf490a.mongodb.net/?retryWrites=true&w=majority&appName=GivenchiCodes}
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-foodly_orders}
+      - DB_WAIT_TIMEOUT_SECONDS=${DB_WAIT_TIMEOUT_SECONDS:-90}
+      - DB_WAIT_INTERVAL_SECONDS=${DB_WAIT_INTERVAL_SECONDS:-3}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:-foodly-compose-secret-key-with-32-plus-chars}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
     ports:
       - '5000:5000'
-    volumes:
-      - ./backend/Foodly/instance:/app/instance
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health/db', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 25s
 
   frontend:
     build:

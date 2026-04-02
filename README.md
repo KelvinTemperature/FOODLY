@@ -19,7 +19,7 @@ FOODLY is a modern full-stack food delivery app for Kuwait with:
 ## Stack
 
 - Backend: Flask, Flask-Smorest, Flask-SQLAlchemy, Flask-JWT-Extended
-- Database: SQLite by default (DATABASE_URL configurable)
+- Database: MySQL for auth/catalog and MongoDB for orders
 - Frontend: HTML, CSS, Vanilla JavaScript
 - Optional payment provider: Stripe (fallback mock gateway enabled)
 
@@ -56,13 +56,13 @@ Services:
 - Frontend: http://127.0.0.1:8080
 - Backend: http://127.0.0.1:5000
 
+Compose resilience:
+- Backend uses `restart: unless-stopped`.
+- Backend healthcheck polls `/health/db` every 15s after startup.
+
 You can set these env vars before compose up:
-- JWT_SECRET_KEY
-- STRIPE_SECRET_KEY
-- FOODLY_ADMIN_EMAIL
-- FOODLY_ADMIN_PASSWORD
-- FOODLY_ADMIN_NAME
-- FOODLY_ADMIN_PHONE
+- DB_WAIT_TIMEOUT_SECONDS
+- DB_WAIT_INTERVAL_SECONDS
 
 ## Admin Account
 
@@ -80,6 +80,7 @@ Admin endpoints:
 
 ### Health and Catalog
 - GET /health
+- GET /health/db
 - GET /catalog
 
 ### Auth

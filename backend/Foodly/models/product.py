@@ -12,4 +12,3 @@ class ProductModel(db.Model):
     shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'), nullable=False)
 
     shop = db.relationship('ShopModel', back_populates='products')
-    orders = db.relationship('OrderModel', back_populates='product', lazy='select')

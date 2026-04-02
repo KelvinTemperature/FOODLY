@@ -14,8 +14,6 @@ class UserModel(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
 
-    orders = db.relationship('OrderModel', back_populates='user', lazy='select')
-
     def set_password(self, raw_password):
         self.password_hash = generate_password_hash(raw_password)
 

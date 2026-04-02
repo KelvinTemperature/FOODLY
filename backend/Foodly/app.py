@@ -1,5 +1,8 @@
 import os
-from sqlalchemy import inspect, text
+import re
+
+from sqlalchemy import create_engine, inspect, text
+from sqlalchemy.engine import URL, make_url
 
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -8,6 +11,7 @@ from flask_smorest import Api
 
 import models
 from db import db
+from mongo import build_mongo_uri_from_env, get_mongo_db, init_mongo
 from models import ProductModel, ShopModel
 from resources.orders import blueprint as orders_blueprint
 from resources.products import blueprint as products_blueprint
@@ -15,6 +19,65 @@ from resources.shops import blueprint as shops_blueprint
 from resources.auth import blueprint as auth_blueprint
 from resources.admin import blueprint as admin_blueprint
 from models import UserModel
+
+
+def _build_mysql_uri():
+    mysql_user = os.environ.get('MYSQL_USER', 'root')
+    mysql_password = os.environ.get('MYSQL_PASSWORD', '')
+    mysql_host = os.environ.get('MYSQL_HOST', '127.0.0.1')
+    mysql_port = int(os.environ.get('MYSQL_PORT', '3306'))
+    mysql_database = os.environ.get('MYSQL_DATABASE', 'foodly_auth')
+
+    return str(
+        URL.create(
+            drivername='mysql+pymysql',
+            username=mysql_user,
+            password=mysql_password,
+            host=mysql_host,
+            port=mysql_port,
+            database=mysql_database,
+        )
+    )
+
+
+def _ensure_sql_database_exists(database_uri):
+    database_url = make_url(database_uri)
+    if not database_url.drivername.startswith('mysql'):
+        return
+
+    database_name = database_url.database
+    if not database_name or not re.match(r'^[a-zA-Z0-9_]+$', database_name):
+        raise ValueError('MYSQL_DATABASE must use only letters, numbers, and underscores')
+
+    server_url = database_url.set(database=None)
+    engine = create_engine(server_url)
+    try:
+        with engine.begin() as connection:
+            connection.execute(
+                text(
+                    f'CREATE DATABASE IF NOT EXISTS `{database_name}` '
+                    'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
+                )
+            )
+    finally:
+        engine.dispose()
+
+
+def _mysql_health_check():
+    try:
+        db.session.execute(text('SELECT 1'))
+        return {'status': 'ok'}
+    except Exception as exc:  # pragma: no cover
+        return {'status': 'error', 'error': str(exc)}
+
+
+def _mongo_health_check():
+    try:
+        mongo_db = get_mongo_db()
+        mongo_db.command('ping')
+        return {'status': 'ok'}
+    except Exception as exc:  # pragma: no cover
+        return {'status': 'error', 'error': str(exc)}
 
 
 def _ensure_user_role_column():
@@ -61,8 +124,10 @@ def create_app():
     app.config['OPENAPI_SWAGGER_UI_PATH'] = '/swagger-ui'
     app.config['OPENAPI_SWAGGER_UI_VERSION'] = '3.25.2'
     app.config['OPENAPI_SWAGGER_UI_URL'] = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist/'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///foodly_kw.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', _build_mysql_uri())
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['MONGO_URI'] = build_mongo_uri_from_env()
+    app.config['MONGO_DB_NAME'] = os.environ.get('MONGO_DB_NAME', 'foodly_orders')
     app.config['JWT_SECRET_KEY'] = os.environ.get(
         'JWT_SECRET_KEY',
         'foodly-dev-secret-key-with-32-plus-chars',
@@ -81,7 +146,27 @@ def create_app():
 
     @app.get('/health')
     def health():
-        return {'status': 'ok', 'service': 'foodly-api-kuwait'}
+        mysql = _mysql_health_check()
+        mongo = _mongo_health_check()
+        all_ok = mysql['status'] == 'ok' and mongo['status'] == 'ok'
+        status_code = 200 if all_ok else 503
+
+        return {
+            'status': 'ok' if all_ok else 'degraded',
+            'service': 'foodly-api-kuwait',
+            'databases': {
+                'mysql': mysql,
+                'mongo': mongo,
+            },
+        }, status_code
+
+    @app.get('/health/db')
+    def health_db():
+        mysql = _mysql_health_check()
+        mongo = _mongo_health_check()
+        all_ok = mysql['status'] == 'ok' and mongo['status'] == 'ok'
+        status_code = 200 if all_ok else 503
+        return {'mysql': mysql, 'mongo': mongo}, status_code
 
     @app.get('/catalog')
     def catalog():
@@ -116,9 +201,11 @@ def create_app():
         )
 
     with app.app_context():
+        _ensure_sql_database_exists(app.config['SQLALCHEMY_DATABASE_URI'])
         db.create_all()
         _ensure_user_role_column()
         _bootstrap_admin_account()
+        init_mongo(app)
 
     return app
 

@@ -6,6 +6,9 @@ flask-jwt-extended
 python-dotenv
 marshmallow
 sqlalchemy
+pymysql
+pymongo
+mongomock
 pytest
 stripe
 gunicorn
