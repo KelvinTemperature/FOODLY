@@ -35,18 +35,13 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open the frontend by serving the `frontend` folder, for example:
-
-```bash
-cd frontend
-python -m http.server 5501
-```
-
 Then open:
 
 ```text
-http://127.0.0.1:5501
+http://127.0.0.1:5001
 ```
+
+Optional: if you want to serve frontend separately, run a static server in `frontend/` and it will still talk to backend on port 5001.
 
 ## Test
 

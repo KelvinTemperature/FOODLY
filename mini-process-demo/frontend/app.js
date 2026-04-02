@@ -1,4 +1,7 @@
-const API_BASE = "http://127.0.0.1:5001";
+const API_BASE =
+  window.location.port === "5001"
+    ? window.location.origin
+    : `${window.location.protocol}//${window.location.hostname || "127.0.0.1"}:5001`;
 
 const taskList = document.getElementById("taskList");
 const taskForm = document.getElementById("taskForm");

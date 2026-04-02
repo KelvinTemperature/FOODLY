@@ -1,9 +1,11 @@
 import os
-from flask import Flask, jsonify, request
+from pathlib import Path
+from flask import Flask, jsonify, request, send_from_directory
 
 
 def create_app():
     app = Flask(__name__)
+    frontend_dir = Path(__file__).resolve().parent / "frontend"
 
     tasks = [
         {"id": 1, "title": "Learn the stack", "done": False},
@@ -38,6 +40,14 @@ def create_app():
                 deleted = tasks.pop(index)
                 return jsonify(deleted)
         return jsonify({"message": "task not found"}), 404
+
+    @app.get("/")
+    def frontend_index():
+        return send_from_directory(frontend_dir, "index.html")
+
+    @app.get("/<path:filename>")
+    def frontend_assets(filename):
+        return send_from_directory(frontend_dir, filename)
 
     return app
 
